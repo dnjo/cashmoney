@@ -6,6 +6,16 @@ class Expense < ApplicationRecord
             :amount,
             :start_month,
             :interval,
-            :active,
             presence: true
+  validates :active, inclusion: { in: [true, false] }
+  after_initialize :set_default_values
+
+  private
+
+  def set_default_values
+    return unless new_record?
+    self[:start_month] ||= 0
+    self[:interval] ||= 1
+    self[:active] ||= true
+  end
 end
