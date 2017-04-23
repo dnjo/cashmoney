@@ -12,5 +12,5 @@
     <p>Start month: <%= f.select :start_month, options_for_select(@start_month_options) %></p>
     <p>Interval: <%= f.text_field :interval %></p>
     <p>Active: <%= f.check_box :active %></p>
-    <%= f.submit 'Create expense' %>
+    <%= f.submit submit_button %>
 <% end %>
