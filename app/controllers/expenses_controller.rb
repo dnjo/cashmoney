@@ -6,8 +6,9 @@ class ExpensesController < ApplicationController
 
   def create
     @expense = Expense.new expense_params
-    @expense.save if @expense.valid?
-    render :index
+    return render :index unless @expense.valid?
+    @expense.save
+    redirect_to expenses_path
   end
 
   def update
