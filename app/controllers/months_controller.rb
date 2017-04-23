@@ -36,6 +36,6 @@ class MonthsController < ApplicationController
   end
 
   def permitted_month_params
-    { payments_attributes: %i[id expense_id amount paid] }
+    { payments_attributes: %i[id expense_id amount paid _destroy] }
   end
 end

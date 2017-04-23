@@ -1,7 +1,7 @@
 class Month < ApplicationRecord
   has_many :payments
   has_many :expenses, through: :payments
-  accepts_nested_attributes_for :payments
+  accepts_nested_attributes_for :payments, allow_destroy: true
 
   validates :time, presence: true
 

@@ -4,6 +4,7 @@
       <th>Title</th>
       <th>Amount</th>
       <th>Paid?</th>
+      <th>Delete?</th>
     </tr>
     <%= f.fields_for :payments do |payment_fields| %>
       <%= payment_fields.hidden_field :expense_id %>
@@ -11,6 +12,7 @@
         <td><%= @month.payments[payment_fields.index].expense.title %></td>
         <td><%= payment_fields.text_field :amount %></td>
         <td><%= payment_fields.check_box :paid %></td>
+        <td><%= payment_fields.check_box :_destroy %></td>
       </tr>
     <% end %>
   </table>
