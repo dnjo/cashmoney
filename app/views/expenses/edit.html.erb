@@ -1,1 +1,4 @@
 <%= render 'expense_form', submit_button: 'Update expense' %>
+<%= form_for @expense, method: :delete do |f| %>
+  <%= f.submit 'Delete expense' %>
+<% end %>

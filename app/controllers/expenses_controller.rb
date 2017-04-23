@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
   before_action :setup_expenses, only: %i[index create]
   before_action :setup_new_expense, only: :index
   before_action :setup_start_month_options, only: %i[index create edit update]
-  before_action :setup_existing_expense, only: %i[edit update]
+  before_action :setup_existing_expense, only: %i[edit update destroy]
 
   def create
     @expense = Expense.new expense_params
@@ -13,6 +13,11 @@ class ExpensesController < ApplicationController
   def update
     @expense.update_attributes expense_params
     render :edit
+  end
+
+  def destroy
+    @expense.destroy
+    redirect_to expenses_path
   end
 
   private
