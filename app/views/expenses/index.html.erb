@@ -1,0 +1,21 @@
+<% @expenses.each do |expense| %>
+  <%= link_to expense.title, edit_expense_path(expense) %> <br />
+<% end %>
+
+<h1>Create new expense</h1>
+<% if @expense.errors.any? %>
+  <ul>
+  <% @expense.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+  </ul>
+<% end %>
+<%= form_for @expense do |f| %>
+  <p><%= f.text_field :title, placeholder: 'Title' %></p>
+  <p><%= f.text_area :description, placeholder: 'Description' %></p>
+  <p><%= f.text_field :amount, placeholder: 'Amount' %></p>
+  <p>Start month: <%= f.select :start_month, options_for_select(@start_month_options) %></p>
+  <p>Interval: <%= f.text_field :interval %></p>
+  <p>Active: <%= f.check_box :active %></p>
+  <%= f.submit 'Create expense' %>
+<% end %>
