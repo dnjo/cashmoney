@@ -12,7 +12,9 @@ class Month < ApplicationRecord
   end
 
   def set_active_expense_payments
-    Expense.where(active: true).each { |expense| create_payment expense }
+    active_expenses = Expense.where active: true
+    month_expenses = filter_month_expenses active_expenses
+    month_expenses.each { |expense| create_payment expense }
   end
 
   def payments_attributes=(payments_attributes)
@@ -32,5 +34,12 @@ class Month < ApplicationRecord
     payment = Payment.new month: self,
                           expense: expense
     payments.push payment
+  end
+
+  def filter_month_expenses(expenses)
+    expenses.select do |expense|
+      month_difference = time.month - (expense.start_month + 1)
+      (month_difference % expense.interval).zero?
+    end
   end
 end
