@@ -1,4 +1,6 @@
 class MonthsController < ApplicationController
+  before_action :setup_expenses
+
   def show
     @month = saved_month || month_with_payments
     render
@@ -7,11 +9,17 @@ class MonthsController < ApplicationController
   def update
     @month = saved_month || new_month
     @month.payments_attributes = payments_attributes
+    add_month_payment @month, params[:expense_id]
     @month.save!
     render :show
   end
 
   private
+
+  def add_month_payment(month, expense_id)
+    return if expense_id.blank?
+    month.add_payment expense_id
+  end
 
   def saved_month
     Month.find_by time: date_from_params
@@ -37,5 +45,9 @@ class MonthsController < ApplicationController
 
   def permitted_month_params
     { payments_attributes: %i[id expense_id amount paid _destroy] }
+  end
+
+  def setup_expenses
+    @expenses = Expense.all
   end
 end

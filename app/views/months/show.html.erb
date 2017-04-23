@@ -16,5 +16,7 @@
       </tr>
     <% end %>
   </table>
+  <% expense_options = options_from_collection_for_select @expenses, :id, :title %>
+  Add payment: <%= select_tag :expense_id, expense_options, include_blank: true %> <br />
   <%= f.submit 'Update month' %>
 <% end %>

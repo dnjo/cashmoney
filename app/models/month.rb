@@ -20,6 +20,12 @@ class Month < ApplicationRecord
     payments.each { |payment| payment.month = self }
   end
 
+  def add_payment(expense_id)
+    return if expenses.find_by id: expense_id
+    expense = Expense.find expense_id
+    create_payment expense
+  end
+
   private
 
   def create_payment(expense)
