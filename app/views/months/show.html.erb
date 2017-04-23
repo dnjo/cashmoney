@@ -1,0 +1,18 @@
+<%= form_for @month, url: update_month_path do |f| %>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Amount</th>
+      <th>Paid?</th>
+    </tr>
+    <%= f.fields_for :payments do |payment_fields| %>
+      <%= payment_fields.hidden_field :expense_id %>
+      <tr>
+        <td><%= @month.payments[payment_fields.index].expense.title %></td>
+        <td><%= payment_fields.text_field :amount %></td>
+        <td><%= payment_fields.check_box :paid %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= f.submit 'Update month' %>
+<% end %>
